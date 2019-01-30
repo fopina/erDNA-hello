@@ -1,15 +1,20 @@
 language: generic
 
+env:
+  global:
+    - KODI_REPO_TRAVIS=https://api.travis-ci.org/repo/fopina%2FerDNA/requests
+
 script:
+  - python -m requests
   - |
     curl -s -X POST \
          -o ~/curl.log \
          -H "Content-Type: application/json" \
          -H "Accept: application/json" \
          -H "Travis-API-Version: 3" \
-         -H "Authorization: token $API_TRAVIS_TOKEN" \
+         -H "Authorization: token $APIX_TRAVIS_TOKEN" \
          -d "{\"request\":{\"config\":{\"script\": \".github/update.sh https://github.com/$TRAVIS_REPO_SLUG $TRAVIS_TAG script.hello.world\"}}}" \
-         https://api.travis-ci.org/repo/fopina%2FerDNA/requests
+         $KODI_REPO_TRAVIS
   - cat ~/curl.log
   - |
     grep -qv '"@type": "error"' ~/curl.log
