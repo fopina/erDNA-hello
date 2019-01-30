@@ -1,0 +1,13 @@
+language: generic
+
+env:
+  global:
+    - KODI_REPO_TRAVIS=https://api.travis-ci.org/repo/fopina%2FerDNA/requests
+
+script:
+  - .github/deploy.py
+
+branches:
+  only:
+    - /^\d+\.\d+\.\d+$/
+
