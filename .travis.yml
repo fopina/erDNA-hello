@@ -16,6 +16,5 @@ script:
 
 branches:
   only:
-    - master
     - /^\d+\.\d+\.\d+$/
 
