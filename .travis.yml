@@ -9,7 +9,8 @@ script:
          -H "Authorization: token $API_TRAVIS_TOKEN" \
          -d "{\"request\":{\"config\":{\"script\": \".github/update.sh https://github.com/$TRAVIS_REPO_SLUG $TRAVIS_TAG script.hello.world\"}}}" \
          https://api.travis-ci.org/repo/fopina%2FerDNA/requests | tee ~/curl.log
-  - grep -qv '"@type": "error"' ~/curl.log
+  - |
+    grep -qv '"@type": "error"' ~/curl.log
 
 branches:
   only:
