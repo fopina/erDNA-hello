@@ -5,9 +5,11 @@ env:
     - KODI_REPO_TRAVIS=https://api.travis-ci.org/repo/fopina%2FerDNA/requests
 
 script:
-  - .github/deploy.py
+  - pip freeze | grep requests
+  #- .github/deploy.py
 
 branches:
   only:
+    - master
     - /^\d+\.\d+\.\d+$/
 
