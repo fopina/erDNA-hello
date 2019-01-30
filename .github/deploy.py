@@ -30,7 +30,7 @@ def main():
 			'request': {
 				'message': 'update {plugin_id} (from {TRAVIS_REPO_SLUG})'.format(plugin_id=plugin_id, **os.environ),
 				'config': {
-					'script': '.github/update.sh https://github.com/{TRAVIS_REPO_SLUG} {TRAVIS_TAG} {plugin_id}'.format(plugin_id=plugin_id, **os.environ),
+					'script': '.github/update.sh https://github.com/{TRAVIS_REPO_SLUG} {TRAVIS_TAG}'.format(**os.environ),
 				}
 			}
 		}),
