@@ -1,12 +1,11 @@
-language: python
+language: generic
 
 env:
   global:
     - KODI_REPO_TRAVIS=https://api.travis-ci.org/repo/fopina%2FerDNA/requests
 
 script:
-  - pip freeze | grep requests
-  #- .github/deploy.py
+  - .github/deploy.py
 
 branches:
   only:

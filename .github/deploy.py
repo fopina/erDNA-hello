@@ -6,6 +6,11 @@ import os
 import sys
 import re
 
+# Travis-CI generic image has requests==2.2.1
+# json methods were introduced in 2.4.2
+# let's keep it short and avoid a pip install
+import json
+
 
 def main():
 	xml = os.path.join(
@@ -20,14 +25,15 @@ def main():
 
 	r = requests.post(
 		os.environ['KODI_REPO_TRAVIS'],
-		json={
+		# with requests 2.4.2, could use `json=` instead
+		data=json.dumps({
 			'request': {
 				'message': 'update {plugin_id} (from {TRAVIS_REPO_SLUG})'.format(plugin_id=plugin_id, **os.environ),
 				'config': {
 					'script': '.github/update.sh https://github.com/{TRAVIS_REPO_SLUG} {TRAVIS_TAG} {plugin_id}'.format(plugin_id=plugin_id, **os.environ),
 				}
 			}
-		},
+		}),
 		headers={
 			'Content-Type': 'application/json',
          	'Accept': 'application/json',
@@ -36,9 +42,11 @@ def main():
 		}
 	)
 	try:
-		if r.json()['@type'] == 'error':
+		# with requests 2.4.2, could use `.json()` instead
+		rj = json.loads(r.content.decode())
+		if rj['@type'] == 'error':
 			print(r.content.decode())
-			print(r.json()['error_message'], file=sys.stderr)
+			print(rj['error_message'], file=sys.stderr)
 			exit(1)
 		else:
 			print(r.content.decode())
