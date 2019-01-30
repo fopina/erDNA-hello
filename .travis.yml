@@ -1,0 +1,15 @@
+script:
+  - |
+    curl -s -X POST \
+         -H "Content-Type: application/json" \
+         -H "Accept: application/json" \
+         -H "Travis-API-Version: 3" \
+         -H "Authorization: token $API_TRAVIS_TOKEN" \
+         -d "{\"request\":{\"config\":{\"script\": \".github/update.sh\"}}}" \
+         https://api.travis-ci.org/repo/fopina%2FerDNA/requests
+
+branches:
+  only:
+    - master
+    - /^\d+\.\d+\.\d+$/
+
